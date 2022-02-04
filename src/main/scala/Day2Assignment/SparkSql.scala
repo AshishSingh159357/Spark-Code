@@ -84,6 +84,12 @@ object SparkSql {
 
 
 
+    // Display Max Weight of Employee which live in State having largest no of employee.
+    var sql6=sparkSession.sql("select max(WeightinKgs) from EAD inner join EPD on EAD.Emp_ID=EPD.Emp_ID where State=(select State from (SELECT count(EAD.Emp_ID) as MyCount,State from EAD inner join EPD on EAD.Emp_ID=EPD.Emp_ID group by State ) where MyCount=(Select max(MyCount) from (SELECT count(EAD.Emp_ID) as MyCount,State from EAD inner join EPD on EAD.Emp_ID=EPD.Emp_ID group by State )))")
+    sql6.show()
+
+
+
   }
 
 }
