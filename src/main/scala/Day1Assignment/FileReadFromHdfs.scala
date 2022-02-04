@@ -1,5 +1,11 @@
 package Day1Assignment
-
+/*
+@ author ashish.singh@stltech.in
+@ version 1.0
+@ date 2/2/2022
+@ copyright Sterlite Technologies Ltd. All right reserved
+@ description File read from HDFS
+*/
 import org.apache.spark.sql.SparkSession
 
 object FileReadFromHdfs {
