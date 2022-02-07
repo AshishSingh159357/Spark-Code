@@ -88,7 +88,7 @@ object SparkSql {
     sparkSession.sql("set spark.sql.legacy.timeParserPolicy=LEGACY")
 
     // Display Date of EmployeeDetail having date of birth after 1980-01-01
-    var sql5 = sparkSession.sql("SELECT EAD.Emp_ID,First_Name,Last_Name,State,to_date(DateofBirth,'MM/dd/yyyy') as dob FROM EAD inner join EBD on EAD.Emp_ID=EBD.Emp_ID inner join EPD on EPD.Emp_ID=EAD.Emp_ID where EAD.State='AK' and to_date(DateofBirth,'MM/dd/yyyy')>to_date('1980-01-01','MM/dd/yyyy') ")
+    var sql5 = sparkSession.sql("SELECT EAD.Emp_ID,First_Name,Last_Name,State,to_date(DateofBirth,'MM/dd/yyyy') as dob FROM EAD inner join EBD on EAD.Emp_ID=EBD.Emp_ID inner join EPD on EPD.Emp_ID=EAD.Emp_ID where EAD.State='AK' and to_date(DateofBirth,'MM/dd/yyyy')>to_date('01-01-1980','MM/dd/yyyy') ")
     sql5.show()
 
 
