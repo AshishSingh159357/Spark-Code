@@ -68,6 +68,7 @@ object SparkSql {
     var sql3 = sparkSession.sql("SELECT Emp_ID,cast(Salary as float),LastHike,(Salary*100)/(cast( replace(LastHike,'%','')  as float) + 100 ) as LastSalary FROM EBD")
     sql3.show()
 
+
     // Storing the Last Salary Data to HDFS
     sql3.write.mode("overwrite").csv("hdfs://localhost:9000/dataset/LastSalary")
 
@@ -84,7 +85,15 @@ object SparkSql {
 
 
 
-    // Display Max Weight of Employee which live in State having largest no of employee.
+    sparkSession.sql("set spark.sql.legacy.timeParserPolicy=LEGACY")
+
+    // Display Date of EmployeeDetail having date of birth after 1980-01-01
+    var sql5 = sparkSession.sql("SELECT EAD.Emp_ID,First_Name,Last_Name,State,to_date(DateofBirth,'MM/dd/yyyy') as dob FROM EAD inner join EBD on EAD.Emp_ID=EBD.Emp_ID inner join EPD on EPD.Emp_ID=EAD.Emp_ID where EAD.State='AK' and to_date(DateofBirth,'MM/dd/yyyy')>to_date('1980-01-01','MM/dd/yyyy') ")
+    sql5.show()
+
+
+
+    // Display max Weight for Employee live in state having highest number of employee.
     var sql6=sparkSession.sql("select max(WeightinKgs) from EAD inner join EPD on EAD.Emp_ID=EPD.Emp_ID where State=(select State from (SELECT count(EAD.Emp_ID) as MyCount,State from EAD inner join EPD on EAD.Emp_ID=EPD.Emp_ID group by State ) where MyCount=(Select max(MyCount) from (SELECT count(EAD.Emp_ID) as MyCount,State from EAD inner join EPD on EAD.Emp_ID=EPD.Emp_ID group by State )))")
     sql6.show()
 
